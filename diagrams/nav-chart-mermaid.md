@@ -43,5 +43,4 @@ flowchart TD
       C <--> F
       D <--> H
       H <--> F
-      %% D --> F
 ```
