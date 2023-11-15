@@ -1,0 +1,20 @@
+
+services:
+  next:
+    build:
+      dockerfile: docker/Next.dockerfile
+      context: ./
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+  database:
+    image: postgres:16.1-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./.postgres:/var/lib/postgresql
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

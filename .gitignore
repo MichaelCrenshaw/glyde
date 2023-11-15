@@ -34,3 +34,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# database storage
+.postgres
+
+# secrets
+.env
+
+# IDE directories
+.idea/
+.vscode/
