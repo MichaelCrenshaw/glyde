@@ -1,46 +1,46 @@
 ```mermaid
-flowchart TD
+flowchart TD;
       A[LOGIN
       - Remember?
-      - 3rd-Party Login?]
+      - 3rd-Party Login?];
       
       B[Home
       -Active Convos
       -Start New
-      -Uread/Recent first]
+      -Uread/Recent first];
       
       C[FRIENDS
       -Current Friends
-      -Friend Requests]
+      -Friend Requests];
       
       D[Convo
       -Settings
-      -Participants]
+      -Participants];
       
       E[User Profile
-      -Edit]
+      -Edit];
       
       F[Friend Profile
       -Block
       -Unfriend
-      -Request]
+      -Request];
       
       G[Settings
       -Notifications
-      -Allow Group Chat]
+      -Allow Group Chat];
   
       H[Participants
       -Add/Remove
-      -View Profile]
+      -View Profile];
   
   
   
-      A <-->|Success| B
-      B <--> D
-      B <--> C
-      B <--> E
-      B <--> G
-      C <--> F
-      D <--> H
-      H <--> F
+      A <-->|Success| B;
+      B <--> D;
+      B <--> C;
+      B <--> E;
+      B <--> G;
+      C <--> F;
+      D <--> H;
+      H <--> F;
 ```
