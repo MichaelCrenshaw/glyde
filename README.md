@@ -18,7 +18,7 @@ If docker is running, you should see some output about the current version insta
 
 To run the app, run the following command in the root directory of the project
 ```bash | powershell
-docker-compose up
+docker-compose up --profile dev
 ```
 
 By default the local app will launch at http://localhost:3000; or http://0.0.0.0:3000 for network connections.

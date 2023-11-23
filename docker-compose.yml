@@ -1,30 +1,45 @@
+version: "3.8"
 
 services:
-  next:
+  next_dev:
     build:
       dockerfile: docker/Next.dockerfile
       context: ./
+      target: dev
     ports:
       - "3000:3000"
     volumes:
       - ./src:/app/src
       - ./public:/app/public
+    environment:
+      - PGUSER=${POSTGRES_USER}
+      - PGPASSWORD=${POSTGRES_PASSWORD}
+      - PGDATABASE=${POSTGRES_DB}
+      - PGPORT=${POSTGRES_PORT}
+      - PGHOST=${POSTGRES_HOST}
+      - SALT_ROUNDS=${SALT_ROUNDS}
+      - SESSION_SECRET_PASSWORD=${SESSION_SECRET_PASSWORD}
     networks:
-      backend:
-
+      - backend
+    depends_on:
+      - database
+    profiles:
+      - dev
   database:
     image: postgres:16.1-alpine
     ports:
-      - "5432:5432"
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       - ./.postgres:/var/lib/postgresql
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     networks:
-      backend:
-        aliases:
-          - db
+      - backend
+    profiles:
+      - dev
+      - prod
 
 networks:
   backend:

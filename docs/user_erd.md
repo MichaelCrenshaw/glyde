@@ -4,34 +4,33 @@ erDiagram
         uuid id
         string username
         string email
-        string passwordHash
-        string passwordSalt
+        string password_hash
     }
     UserSettings {
-        blob profilePicture
-        bool pushNotifications "true"
+        blob profile_picture
+        bool push_notifications "true"
     }
     FriendStatus {
-        uuid id
-        uuid id
+        uuid sender_id
+        uuid receiver_id
         string status
     }
     Message {
-        uuid senderId
-        uuid channelId
+        uuid sender_id
+        uuid channel_id
         string content
         array[blob] attachments
     }
     Channel {
-        uuid channelId
+        uuid channel_id
         string name
         string type
         blob icon
         array[uuid] members
     }
     UserChannelSettings {
-        uuid userId
-        uuid channelId
+        uuid user_id
+        uuid channel_id
         bool muted
         bool pinned
     }
@@ -46,13 +45,21 @@ erDiagram
 
 # PSQL Table Declaration
 
+The following tables will require the following extensions:
+
+```psql
+/* added by postgres-contrib */
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+```
+
+And can be created with the following statements:
+
 ```psql
 CREATE TABLE users (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    password_salt VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_settings (
@@ -62,18 +69,10 @@ CREATE TABLE user_settings (
 );
 
 CREATE TABLE friend_status (
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    friend_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    status VARCHAR(255) NOT NULL,
-    PRIMARY KEY (user_id, friend_id)
-);
-
-CREATE TABLE messages (
-    id UUID PRIMARY KEY,
     sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    channel_id UUID NOT NULL REFERENCES channels(id) ON DELETE CASCADE,
-    content VARCHAR(255) NOT NULL,
-    attachments BYTEA[]
+    receiver_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    status VARCHAR(255) NOT NULL,
+    PRIMARY KEY (sender_id, receiver_id)
 );
 
 CREATE TABLE channels (
@@ -84,11 +83,19 @@ CREATE TABLE channels (
     members UUID[] NOT NULL
 );
 
+CREATE TABLE messages (
+    id UUID PRIMARY KEY,
+    sender_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    channel_id UUID NOT NULL REFERENCES channels(id) ON DELETE CASCADE,
+    content VARCHAR(255) NOT NULL,
+    attachments BYTEA[]
+);
+
 CREATE TABLE user_channel_settings (
     user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     channel_id UUID NOT NULL REFERENCES channels(id) ON DELETE CASCADE,
     muted BOOLEAN NOT NULL DEFAULT FALSE,
-    pinned BOOLEAN NOT NULL DEFAULT FALSE,
+    pinned BOOLEAN NOT NULL DEFAULT FALSE,  
     PRIMARY KEY (user_id, channel_id)
 );
 
