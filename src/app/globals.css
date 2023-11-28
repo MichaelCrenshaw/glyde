@@ -16,6 +16,11 @@
 	}
 }
 
+img {
+	border: none;
+	outline: none;
+}
+
 /* body */
 .body {
 	position: relative;
@@ -47,45 +52,47 @@
 .header {
 	position: relative;
 	width: 184px;
-	height: 40px;
+	height: 32px;
+	z-index: 1;
 	display: flex;
 	flex-direction: row;
-	align-items: start;
-	justify-content: start;
-	gap: 0px;
-	padding: 0px;
-	flex-wrap: nowrap;
 }
 
-.header-image-logo {
-	position: absolute;
-	width: 29px;
+.app-logo {
 	height: 30px;
-	left: 11px;
-	top: 13px;
-	border-radius: 16px;
+	width: 30px;
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	/* align-self: center; */
+	background-color: rgba(0, 134, 130, 1);
+	background-image: url("GLYDE-logo-mark.png");
+	background-size: 100%;
+	border-radius: 50%;
+	border: none;
 }
 
 .lable-app-name {
-	width: 107px;
-	height: 63px;
-	left: 62px;
-	top: 11px;
 	color: rgba(255, 255, 255, 1);
+	background-color: rgba(0, 166, 161, 1);
 	font-family: 'ABeeZee';
 	font-style: normal;
 	font-size: 28px;
 	font-weight: 400;
-	line-height: 1.2;
+	line-height: 1.8;
+	text-align: center;
 	letter-spacing: 3.6px;
-	text-decoration: none;
-	text-transform: none;
   }
   
 .header-name-container {
 	width: 132px;
+	justify-content: center;
+}
+
+.header-logo-container {
+	width: 52px;
 	height: 100%;
-	background-color: rgba(0, 166, 161, 1);
+	background-color: rgba(0, 134, 130, 1);
 }
 
 .navigation {
@@ -117,8 +124,8 @@
 
 .nav-buttons-container {
 	position: absolute;
-	width: auto;
-	height: auto;
+	width: 100%;
+	height: 100%;
 	top: 16px;
 	display: flex;
 	flex-direction: column;
@@ -131,15 +138,46 @@
 
 .nav-button {
 	position: relative;
-	width: auto;
-	height: auto;
+	width: 48px;
+	height: 48px;
 	display: flex;
 	flex-direction: column;
 	align-items: start;
 	justify-content: start;
-	gap: 0px;
 	padding: 8px;
-	flex-wrap: nowrap;
+	z-index: 1;
+}
+
+.nav-button-image {
+	position: relative;
+	width: 32px;
+	height: 32px;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	border-radius: 24px;
+	background-color: rgba(0, 166, 161, 1);
+	background-size: 90%;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	z-index: 1;
+}
+
+.home-button {
+	background-image: url("home_icon.svg");
+}
+
+.profile-button {
+	background-image: url("profile-icon-1.svg");
+}
+
+.friends-button {
+	background-image: url("friends-icon-1.svg");
+}
+
+.settings-button {
+	background-image: url("settings-icon.svg");
 }
 
 .nav-slider-1 {
@@ -182,7 +220,7 @@
 	gap: 0px;
 	padding: 0px;
 	flex-wrap: nowrap;
-	align-self: end;
+	/* align-self: end; */
 }
 
 .search-bar {
@@ -201,11 +239,11 @@
 }
 
 .chat-list {
-	position: absolute;
-	width: 66px;
-	height: 102px;
+	position: relative;
+	width: 100%;
+	height: 32px;
 	left: 24px;
-	top: 57px;
+	top: 61px;
 	display: flex;
 	flex-direction: column;
 	align-items: start;
@@ -213,16 +251,21 @@
 	gap: 16px;
 	padding: 0px;
 	flex-wrap: nowrap;
+	z-index: 1;
+}
+
+.chat-list .selected {
+	color: rgba(0, 134, 130, 1);;
 }
 
 .chat-list-item {
-	width: 77px;
+	width: 100%;
 	height: 14px;
 	color: rgba(255, 255, 255, 1);
 	font-family: 'ABeeZee';
 	font-style: normal;
 	font-size: 14px;
-	font-weight: 400;
+	font-weight: 500;
 	line-height: 1;
 	letter-spacing: 0px;
 	text-decoration: none;
@@ -336,3 +379,25 @@
 	border-radius: 16px 0px 0px 16px;
 	background-color: rgba(255, 255, 255, 1);
 }
+
+.input-search-bar {
+	border-radius: 16px;
+	height: 32px;
+	margin-right: 8px;
+	padding-left: 8px;
+	width: 100%;
+	color: white;
+	font-style: italic;
+	font-size: 14px;
+	background-color: rgba(0, 166, 161, 1);
+	box-shadow: inset 1px 1px 6px rgba(0,0,0,0.5);
+}
+
+.input-search-bar:focus {
+	border: none;
+	outline: none;
+}
+
+::placeholder {
+	color: white;
+  }
